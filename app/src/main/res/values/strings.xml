@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Quizy</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_add_quiz">Add Quiz</string>
+    <string name="navigation_list_tag">Tags List</string>
+    <string name="navigation_list_quiz">Quizzes List</string>
+    <string name="filter">Filter</string>
+    <string name="type_tag_name">Type the name of tag…</string>
+    <string name="newest">The newest</string>
+    <string name="popular">The most popular</string>
+    <string name="hardest">The hardest</string>
+    <string name="loading">Loading…</string>
+    <string name="quiz_name">The name of quiz</string>
+    <string name="quiz_avg">The average:</string>
+    <string name="quiz_best">The best:</string>
+    <string name="none">none</string>
+    <string name="not_found_quiz">Not found any quiz.</string>
+    <string name="not_found_tag">Not found any tag.</string>
+    <string name="tag_name">TagName</string>
+    <string name="tags_list">The list of tags</string>
+    <string name="quiz_avg_label">The average score:</string>
+    <string name="quiz_best_label">The best score:</string>
+    <string name="quiz_counter_label">Number of players:</string>
+    <string name="quiz_no_questions_label">Number of questions:</string>
+    <string name="quiz_timelimit_label">Time per question:</string>
+    <string name="start_button">Start!</string>
+    <string name="quiz_creator_header">Quiz Creator</string>
+    <string name="text_of_question">Text of question</string>
+    <string name="first_option">First option</string>
+    <string name="second_option">Second option</string>
+    <string name="third_option">Third option</string>
+    <string name="fourth_option">Fourth option</string>
+    <string name="quiz_tags">Tags (separated by whitespaces)</string>
+    <string name="quiz_time_per_question">Time per question:</string>
+    <string name="quiz_no_questions">Number of questions:</string>
+    <string name="create">Create</string>
+    <string name="question_add">Add</string>
+    <string name="question_creator">Question Creator</string>
+    <string name="question_delete">Delete</string>
+    <string name="quiz_time_limit">Time Limit (seconds)</string>
+    <string name="empty_fields">Some fields are empty.</string>
+    <string name="select_question">Select question</string>
+    <string name="server_error">There is some problem with server.</string>
+    <string name="connection_error">There is a problem with Internet connection.</string>
+    <string name="error">Error</string>
+</resources>
