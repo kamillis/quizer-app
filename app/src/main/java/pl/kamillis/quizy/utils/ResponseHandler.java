@@ -2,6 +2,7 @@ package pl.kamillis.quizy.utils;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -23,6 +24,8 @@ public abstract class ResponseHandler extends TextHttpResponseHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
         int text;
+
+        Log.wtf("response", responseString);
 
         if (statusCode > 0) {
             text = R.string.server_error;

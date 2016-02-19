@@ -2,130 +2,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.kamillis.quizy.fragments.SummaryFragment">
+    tools:context="pl.kamillis.quizy.fragments.SummaryFragment"
+    android:gravity="center_vertical">
 
-    <RelativeLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/quiz_name"
+        android:id="@+id/quizSummaryName"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:gravity="center_vertical"
-        android:id="@+id/quizSummary">
+        android:layout_marginBottom="30dp" />
 
-        <TextView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0.0%"
+        android:id="@+id/quizSummaryScore"
+        android:layout_below="@+id/quizSummaryName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:textSize="35sp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/quizSummaryScore"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/quiz_name"
-            android:id="@+id/quizSummaryName"
-            android:singleLine="true"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="40dp" />
+            android:layout_marginBottom="10dp">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            android:layout_below="@+id/quizSummaryName"
-            android:layout_centerHorizontal="true">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/quiz_avg_label"
+                android:id="@+id/quizSummaryAvgLabel"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageViewAvg"
+                android:layout_toEndOf="@+id/imageViewAvg"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/quiz_avg_label"
-                    android:id="@+id/quizSummaryAvgLabel"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/imageViewAvg"
-                    android:layout_toEndOf="@+id/imageViewAvg"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageViewAvg"
-                    android:src="@drawable/ic_equalizer_black_18dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="0.0%"
-                    android:id="@+id/quizSummaryAvg"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/quizSummaryAvgLabel"
-                    android:layout_toEndOf="@+id/quizSummaryAvgLabel"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:id="@+id/imageViewAvg"
+                android:src="@drawable/ic_equalizer_black_18dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageViewBest"
-                    android:src="@drawable/ic_star_rate_black_18dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0.0%"
+                android:id="@+id/quizSummaryAvg"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/quizSummaryAvgLabel"
+                android:layout_toEndOf="@+id/quizSummaryAvgLabel"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="0.0%"
-                    android:id="@+id/quizSummaryBest"
-                    android:textStyle="bold"
-                    android:layout_alignBaseline="@+id/quizSummaryBestLabel"
-                    android:layout_alignBottom="@+id/quizSummaryBestLabel"
-                    android:layout_toRightOf="@+id/quizSummaryBestLabel"
-                    android:layout_toEndOf="@+id/quizSummaryBestLabel"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/quiz_best_label"
-                    android:id="@+id/quizSummaryBestLabel"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/imageViewBest"
-                    android:layout_toEndOf="@+id/imageViewBest"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/try_again_button"
-            android:id="@+id/quizStartButton"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
-    </RelativeLayout>
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewBest"
+                android:src="@drawable/ic_star_rate_black_18dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0.0%"
+                android:id="@+id/quizSummaryBest"
+                android:textStyle="bold"
+                android:layout_alignBaseline="@+id/quizSummaryBestLabel"
+                android:layout_alignBottom="@+id/quizSummaryBestLabel"
+                android:layout_toRightOf="@+id/quizSummaryBestLabel"
+                android:layout_toEndOf="@+id/quizSummaryBestLabel"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/quiz_best_label"
+                android:id="@+id/quizSummaryBestLabel"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageViewBest"
+                android:layout_toEndOf="@+id/imageViewBest"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/try_again_button"
+        android:id="@+id/quizRestartButton"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

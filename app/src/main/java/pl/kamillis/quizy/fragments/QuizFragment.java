@@ -3,12 +3,15 @@ package pl.kamillis.quizy.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 import java.util.Iterator;
 
@@ -30,6 +33,7 @@ public class QuizFragment extends Fragment {
     private QuizListener listener;
 
     @Bind(R.id.quizStatus) TextView quizStatus;
+    @Bind(R.id.quizContainer) RelativeLayout quizContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,9 +42,9 @@ public class QuizFragment extends Fragment {
 
         if (savedInstanceState != null) {
             quiz = (Quiz)savedInstanceState.getSerializable("quiz");
-            questionIterator = quiz.getQuestions().iterator();
             questionNumber = savedInstanceState.getInt("questionNumber");
             correctAnswers = savedInstanceState.getInt("correctAnswers");
+            questionIterator = quiz.getQuestions().listIterator(questionNumber);
         } else {
             Bundle arguments = getArguments();
             if (arguments != null && arguments.getInt("id", 0) > 0) {
@@ -73,6 +77,13 @@ public class QuizFragment extends Fragment {
 
     public Quiz getQuiz() {
         return quiz;
+    }
+
+    public void restartQuiz() {
+        questionNumber = 0;
+        correctAnswers = 0;
+        questionIterator = quiz.getQuestions().listIterator();
+        onQuizStarted();
     }
 
     public void onQuizStarted() {
@@ -109,12 +120,19 @@ public class QuizFragment extends Fragment {
     }
 
     private void onQuizFinished(double score) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("score", score);
 
+        Fragment fragment = new SummaryFragment();
+        fragment.setArguments(bundle);
+
+        replaceFragment(fragment);
     }
 
     private void saveResults() {
         quizStatus.setText(R.string.loading);
         quizStatus.setVisibility(View.VISIBLE);
+        quizContainer.setVisibility(View.GONE);
 
         final double score = 100.0 * correctAnswers / quiz.getNoQuestions();
         SaveResultsRequest req = new SaveResultsRequest(score);
@@ -128,11 +146,14 @@ public class QuizFragment extends Fragment {
                 SaveResultsResponse res = gson.fromJson(responseString, SaveResultsResponse.class);
 
                 if (res.success) {
-                    quiz = res.instance;
+                    quiz.setAvgScore(res.instance.getAvgScore());
+                    quiz.setBestScore(res.instance.getBestScore());
+                    quiz.setCounter(res.instance.getCounter());
                 }
 
-                quizStatus.setVisibility(View.GONE);
                 onQuizFinished(score);
+                quizStatus.setVisibility(View.GONE);
+                quizContainer.setVisibility(View.VISIBLE);
             }
 
         });
@@ -148,7 +169,7 @@ public class QuizFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Gson gson = new Gson();
                 quiz = gson.fromJson(responseString, Quiz.class);
-                questionIterator = quiz.getQuestions().iterator();
+                questionIterator = quiz.getQuestions().listIterator();
                 quizStatus.setVisibility(View.GONE);
                 setMainFragment();
             }
@@ -172,7 +193,7 @@ public class QuizFragment extends Fragment {
     }
 
     private class SaveResultsRequest {
-        double score;
+        @Expose double score;
         public SaveResultsRequest(double score) {
             this.score = score;
         }
