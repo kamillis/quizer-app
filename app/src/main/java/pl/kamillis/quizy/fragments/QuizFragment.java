@@ -3,21 +3,20 @@ package pl.kamillis.quizy.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.loopj.android.http.RequestParams;
 
-import java.util.List;
+import java.util.Iterator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import pl.kamillis.quizy.R;
+import pl.kamillis.quizy.models.Question;
 import pl.kamillis.quizy.models.Quiz;
 import pl.kamillis.quizy.utils.ResponseHandler;
 import pl.kamillis.quizy.utils.RestClient;
@@ -25,6 +24,9 @@ import pl.kamillis.quizy.utils.RestClient;
 public class QuizFragment extends Fragment {
 
     private Quiz quiz;
+    private Iterator<Question> questionIterator;
+    private int questionNumber = 0;
+    private int correctAnswers = 0;
     private QuizListener listener;
 
     @Bind(R.id.quizStatus) TextView quizStatus;
@@ -36,6 +38,9 @@ public class QuizFragment extends Fragment {
 
         if (savedInstanceState != null) {
             quiz = (Quiz)savedInstanceState.getSerializable("quiz");
+            questionIterator = quiz.getQuestions().iterator();
+            questionNumber = savedInstanceState.getInt("questionNumber");
+            correctAnswers = savedInstanceState.getInt("correctAnswers");
         } else {
             Bundle arguments = getArguments();
             if (arguments != null && arguments.getInt("id", 0) > 0) {
@@ -49,6 +54,8 @@ public class QuizFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("quiz", quiz);
+        outState.putInt("questionNumber", questionNumber);
+        outState.putInt("correctAnswers", correctAnswers);
         super.onSaveInstanceState(outState);
     }
 
@@ -64,12 +71,71 @@ public class QuizFragment extends Fragment {
         listener = null;
     }
 
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
     public void onQuizStarted() {
+        Question firstQuestion = questionIterator.next();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("questionNumber", ++questionNumber);
+        bundle.putInt("noQuestions", quiz.getNoQuestions());
+        bundle.putSerializable("question", firstQuestion);
+
+        Fragment fragment = new QuestionFragment();
+        fragment.setArguments(bundle);
+
+        replaceFragment(fragment);
+    }
+
+    public void onQuestionAnswered(boolean isCorrect) {
+        if (isCorrect) ++correctAnswers;
+        if (questionIterator.hasNext()) {
+            Question question = questionIterator.next();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("questionNumber", ++questionNumber);
+            bundle.putInt("noQuestions", quiz.getNoQuestions());
+            bundle.putSerializable("question", question);
+
+            Fragment fragment = new QuestionFragment();
+            fragment.setArguments(bundle);
+
+            replaceFragment(fragment);
+        } else {
+            saveResults();
+        }
+    }
+
+    private void onQuizFinished(double score) {
 
     }
 
-    public Quiz getQuiz() {
-        return quiz;
+    private void saveResults() {
+        quizStatus.setText(R.string.loading);
+        quizStatus.setVisibility(View.VISIBLE);
+
+        final double score = 100.0 * correctAnswers / quiz.getNoQuestions();
+        SaveResultsRequest req = new SaveResultsRequest(score);
+        String url = "quiz/" + quiz.getId() + "/score";
+
+        RestClient.post(getContext(), url, req, new ResponseHandler(getContext()) {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Gson gson = new Gson();
+                SaveResultsResponse res = gson.fromJson(responseString, SaveResultsResponse.class);
+
+                if (res.success) {
+                    quiz = res.instance;
+                }
+
+                quizStatus.setVisibility(View.GONE);
+                onQuizFinished(score);
+            }
+
+        });
     }
 
     private void getQuiz(int id) {
@@ -82,6 +148,7 @@ public class QuizFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Gson gson = new Gson();
                 quiz = gson.fromJson(responseString, Quiz.class);
+                questionIterator = quiz.getQuestions().iterator();
                 quizStatus.setVisibility(View.GONE);
                 setMainFragment();
             }
@@ -102,6 +169,18 @@ public class QuizFragment extends Fragment {
                 .beginTransaction()
                 .replace(R.id.quizContainer, fragment)
                 .commit();
+    }
+
+    private class SaveResultsRequest {
+        double score;
+        public SaveResultsRequest(double score) {
+            this.score = score;
+        }
+    }
+
+    private class SaveResultsResponse {
+        boolean success;
+        Quiz instance;
     }
 
     public interface QuizListener {

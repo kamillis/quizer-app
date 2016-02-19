@@ -1,10 +1,10 @@
 package pl.kamillis.quizy.utils;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+
 import com.loopj.android.http.TextHttpResponseHandler;
+
 import cz.msebera.android.httpclient.Header;
 import pl.kamillis.quizy.R;
 

@@ -47,4 +47,7 @@
     <string name="server_error">There is some problem with server.</string>
     <string name="connection_error">There is a problem with Internet connection.</string>
     <string name="error">Error</string>
+    <string name="question_text">Question text</string>
+    <string name="go_next">Next Question</string>
+    <string name="try_again_button">Try Again</string>
 </resources>

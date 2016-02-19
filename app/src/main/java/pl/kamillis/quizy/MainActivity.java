@@ -8,12 +8,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
+import pl.kamillis.quizy.fragments.QuizCreatorFragment;
 import pl.kamillis.quizy.fragments.QuizFragment;
 import pl.kamillis.quizy.fragments.QuizzesListFragment;
-import pl.kamillis.quizy.fragments.QuizCreatorFragment;
 import pl.kamillis.quizy.fragments.TagsListFragment;
 
 public class MainActivity extends AppCompatActivity

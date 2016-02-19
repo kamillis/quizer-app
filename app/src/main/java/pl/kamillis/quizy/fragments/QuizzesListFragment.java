@@ -3,14 +3,13 @@ package pl.kamillis.quizy.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +22,9 @@ import com.loopj.android.http.RequestParams;
 
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import pl.kamillis.quizy.R;
 import pl.kamillis.quizy.adapters.QuizzesListAdapter;
 import pl.kamillis.quizy.models.Quiz;

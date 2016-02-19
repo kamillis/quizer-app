@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.kamillis.quizy.fragments.QuestionFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/question_text"
+        android:id="@+id/quizQuestionText"
+        android:singleLine="false"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="1/10"
+        android:id="@+id/quizProgress"
+        android:layout_below="@+id/quizQuestionText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/first_option"
+        android:id="@+id/quizFirstOptionButton"
+        android:layout_below="@+id/quizProgress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:singleLine="true"
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"
+        android:layout_toLeftOf="@+id/quizProgress"
+        android:layout_toStartOf="@+id/quizProgress" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/second_option"
+        android:id="@+id/quizSecondOptionButton"
+        android:singleLine="true"
+        android:textAllCaps="false"
+        android:layout_alignTop="@+id/quizFirstOptionButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/quizProgress"
+        android:layout_toEndOf="@+id/quizProgress" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/third_option"
+        android:id="@+id/quizThirdOptionButton"
+        android:layout_below="@+id/quizSecondOptionButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:singleLine="true"
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"
+        android:layout_alignRight="@+id/quizFirstOptionButton"
+        android:layout_alignEnd="@+id/quizFirstOptionButton" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fourth_option"
+        android:id="@+id/quizFourthOptionButton"
+        android:singleLine="true"
+        android:textAllCaps="false"
+        android:layout_below="@+id/quizSecondOptionButton"
+        android:layout_alignLeft="@+id/quizSecondOptionButton"
+        android:layout_alignStart="@+id/quizSecondOptionButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_next"
+        android:id="@+id/quizNextQuestion"
+        android:enabled="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/quizFourthOptionButton"
+        android:layout_alignEnd="@+id/quizFourthOptionButton" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:id="@+id/quizQuestionTimerLay"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/quizQuestionTimer"
+            android:textSize="25sp"
+            android:textColor="#ffffff" />
+    </FrameLayout>
+
+
+</RelativeLayout>
