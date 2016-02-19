@@ -92,16 +92,17 @@
         android:background="@color/colorPrimaryDark"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_above="@+id/quizNextQuestion"
         android:layout_centerHorizontal="true"
         android:id="@+id/quizQuestionTimerLay">
 
-        <Chronometer
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/quizQuestionTimer"
+            android:text="0"
             android:textSize="25sp"
             android:textColor="#ffffff" />
     </FrameLayout>

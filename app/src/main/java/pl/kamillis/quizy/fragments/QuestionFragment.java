@@ -3,6 +3,7 @@ package pl.kamillis.quizy.fragments;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +21,19 @@ import butterknife.ButterKnife;
 import pl.kamillis.quizy.R;
 import pl.kamillis.quizy.models.Option;
 import pl.kamillis.quizy.models.Question;
+import pl.kamillis.quizy.models.Quiz;
+import pl.kamillis.quizy.utils.Timer;
 
-public class QuestionFragment extends Fragment {
+public class QuestionFragment extends Fragment implements Timer.TimerListener {
 
     private Question question;
     private int questionNumber;
     private int noQuestions;
     private int selectedButton;
+    private long secondsUntilFinished;
     private boolean isCorrect;
     private QuizFragment quizFragment;
+    private CountDownTimer timer;
 
     @Bind(R.id.quizQuestionText) TextView quizQuestionText;
     @Bind(R.id.quizProgress) TextView quizProgress;
@@ -38,25 +43,43 @@ public class QuestionFragment extends Fragment {
     @Bind(R.id.quizFourthOptionButton) Button quizFourthOptionButton;
     @Bind(R.id.quizNextQuestion) Button quizNextQuestion;
     @Bind(R.id.quizQuestionTimerLay) FrameLayout quizQuestionTimerLay;
-    @Bind(R.id.quizQuestionTimer) Chronometer quizQuestionTimer;
+    @Bind(R.id.quizQuestionTimer) TextView quizQuestionTimer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question, container, false);
         ButterKnife.bind(this, view);
 
+        Quiz quiz = quizFragment.getQuiz();
+
         if (savedInstanceState != null) {
             question = (Question)savedInstanceState.getSerializable("question");
             questionNumber = savedInstanceState.getInt("questionNumber");
             noQuestions = savedInstanceState.getInt("noQuestions");
             selectedButton = savedInstanceState.getInt("selectedButton");
+            secondsUntilFinished = savedInstanceState.getLong("secondsUntilFinished");
             isCorrect = savedInstanceState.getBoolean("isCorrect");
+            quizQuestionTimer.setText(secondsUntilFinished + "");
+
+            if (selectedButton == 0) {
+                timer = new Timer(this, secondsUntilFinished);
+                timer.start();
+            }
+
             selectAfterRotation();
+
         } else {
+
             Bundle arguments = getArguments();
             question = (Question)arguments.getSerializable("question");
             questionNumber = arguments.getInt("questionNumber");
             noQuestions = arguments.getInt("noQuestions");
+
+            quizQuestionTimer.setText(quiz.getTimeLimit() + "");
+            secondsUntilFinished = quiz.getTimeLimit();
+            timer = new Timer(this, quiz.getTimeLimit());
+            timer.start();
+
         }
 
         quizQuestionText.setText(question.getText());
@@ -96,8 +119,15 @@ public class QuestionFragment extends Fragment {
         outState.putInt("questionNumber", questionNumber);
         outState.putInt("noQuestions", noQuestions);
         outState.putInt("selectedButton", selectedButton);
+        outState.putLong("secondsUntilFinished", secondsUntilFinished);
         outState.putBoolean("isCorrect", isCorrect);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (timer != null) timer.cancel();
+        super.onDestroy();
     }
 
     @Override
@@ -145,6 +175,22 @@ public class QuestionFragment extends Fragment {
         quizNextQuestion.setEnabled(true);
     }
 
+    @Override
+    public void onTimerTick(long seconds) {
+        quizQuestionTimer.setText(seconds + "");
+        secondsUntilFinished = seconds;
+    }
+
+    @Override
+    public void onTimerFinish() {
+        quizQuestionTimerLay.setBackgroundColor(Color.RED);
+        quizQuestionTimer.setText("0");
+        secondsUntilFinished = 0;
+        isCorrect = false;
+        selectedButton = -1;
+        afterAnswer();
+    }
+
     private class OptionOnClickListener implements View.OnClickListener {
 
         private Option option;
@@ -162,7 +208,7 @@ public class QuestionFragment extends Fragment {
                 v.setBackgroundColor(Color.RED);
                 isCorrect = false;
             }
-            quizQuestionTimer.stop();
+            timer.cancel();
             selectedButton = v.getId();
             afterAnswer();
         }
