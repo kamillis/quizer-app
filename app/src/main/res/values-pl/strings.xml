@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Quizy</string>
+
+    <string name="navigation_drawer_open">Otwórz nawigację</string>
+    <string name="navigation_drawer_close">Zamknij nawigację</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_add_quiz">Dodaj Quiz</string>
+    <string name="navigation_list_tag">Lista Tagów</string>
+    <string name="navigation_list_quiz">Lista Quizów</string>
+    <string name="filter">Filtruj</string>
+    <string name="type_tag_name">Wpisz nazwę tagu…</string>
+    <string name="newest">Najnowsze</string>
+    <string name="popular">Najpopularniejsze</string>
+    <string name="hardest">Najtrudniejsze</string>
+    <string name="loading">Ładowanie…</string>
+    <string name="quiz_name">Nazwa quizu</string>
+    <string name="quiz_avg">Średnio:</string>
+    <string name="quiz_best">Najlepiej:</string>
+    <string name="none">brak</string>
+    <string name="not_found_quiz">Nie znaleziono quizu.</string>
+    <string name="not_found_tag">Nie znaleziono tagu.</string>
+    <string name="tag_name">TagName</string>
+    <string name="tags_list">Lista tagów</string>
+    <string name="quiz_avg_label">Średni wynik:</string>
+    <string name="quiz_best_label">Najlepszy wynik:</string>
+    <string name="quiz_counter_label">Liczba graczy:</string>
+    <string name="quiz_no_questions_label">Liczba pytań:</string>
+    <string name="quiz_timelimit_label">Czas na pytanie:</string>
+    <string name="start_button">Start!</string>
+    <string name="quiz_creator_header">Kreator Quizu</string>
+    <string name="text_of_question">Treść pytania</string>
+    <string name="first_option">Pierwsza opcja</string>
+    <string name="second_option">Druga opcja</string>
+    <string name="third_option">Trzecia opcja</string>
+    <string name="fourth_option">Czwarta opcja</string>
+    <string name="quiz_tags">Tagi (oddzielone spacjami)</string>
+    <string name="quiz_time_per_question">Czas na pytanie:</string>
+    <string name="quiz_no_questions">Liczba pytań:</string>
+    <string name="create">Utwórz</string>
+    <string name="question_add">Dodaj</string>
+    <string name="question_creator">Kreator Pytania</string>
+    <string name="question_delete">Usuń</string>
+    <string name="quiz_time_limit">Limit Czasu (sekundy)</string>
+    <string name="empty_fields">Któreś z pól jest puste.</string>
+    <string name="select_question">Wybierz pytanie</string>
+    <string name="server_error">Na serwerze wystąpił błąd.</string>
+    <string name="connection_error">Masz problem z internetem.</string>
+    <string name="error">Błąd</string>
+    <string name="question_text">Treść pytania</string>
+    <string name="go_next">Następne pytanie</string>
+    <string name="try_again_button">Spróbuj ponownie</string>
+    <string name="menu">Menu</string>
+</resources>
